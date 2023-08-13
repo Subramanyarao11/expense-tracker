@@ -1,39 +1,9 @@
 import { Button } from "@/components/ui/button";
 import { currencyFormatter } from "@/lib/currencyFormatter";
 import ExpenseCategoryItem from "@/components/ExpenseCategoryItem";
+import DUMMY_DATA from "@/lib/dummydata";
+import ChartSection from "@/components/ChartSection";
 export default function Home() {
-    const DUMMY_DATA = [
-        {
-            id: 1,
-            title: "Entertainment",
-            color: "#000",
-            total: 500,
-        },
-        {
-            id: 2,
-            title: "Gas",
-            color: "#009",
-            total: 200,
-        },
-        {
-            id: 3,
-            title: "Fuel",
-            color: "#000",
-            total: 1200,
-        },
-        {
-            id: 4,
-            title: "Movies",
-            color: "#000",
-            total: 800,
-        },
-        {
-            id: 5,
-            title: "Holiday",
-            color: "#000",
-            total: 2000,
-        },
-    ];
 
     return (
         <div>
@@ -52,7 +22,7 @@ export default function Home() {
                 <section className="py-6">
                     <h3 className="text-2xl">My Expenses</h3>
                     <div className="flex flex-col gap-4 mt-6">
-                        {DUMMY_DATA.map((expense) => {
+                        {DUMMY_DATA?.map((expense) => {
                             return (
                                 <ExpenseCategoryItem
                                     color={expense.color}
@@ -63,6 +33,10 @@ export default function Home() {
                         })}
                     </div>
                 </section>
+
+                {/* Chart Section */}
+                <ChartSection />
+
             </main>
         </div>
     )
