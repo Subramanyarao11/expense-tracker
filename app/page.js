@@ -3,6 +3,8 @@ import { currencyFormatter } from "@/lib/currencyFormatter";
 import ExpenseCategoryItem from "@/components/ExpenseCategoryItem";
 import DUMMY_DATA from "@/lib/dummydata";
 import ChartSection from "@/components/ChartSection";
+import { ExpenseModal } from "@/components/ExpenseModal";
+import { IncomeModal } from "@/components/IncomeModal";
 export default function Home() {
 
     return (
@@ -13,8 +15,8 @@ export default function Home() {
                     <h2 className="text-3xl font-bold">{currencyFormatter(1000)}</h2>
                 </section>
                 <section className="flex items-center gap-2 py-3">
-                    <Button variant="secondary">+ Expenses</Button>
-                    <Button variant="secondary">+ Income</Button>
+                    <ExpenseModal />
+                    <IncomeModal />
                 </section>
 
                 {/* Expenses Section */}
