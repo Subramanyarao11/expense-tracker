@@ -1,4 +1,6 @@
+"use client";
 import { Button } from "@/components/ui/button"
+import { useState } from "react"
 import {
     Dialog,
     DialogContent,
@@ -10,8 +12,64 @@ import {
 } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import incomeSchema from "@/lib/incomeSchema";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { db } from "@/lib/firebase"
+import { collection, addDoc } from "firebase/firestore"
+
+
 
 export function IncomeModal() {
+    const [formData, setFormData] = useState({
+        amount: '',
+        description: '',
+    });
+    const [validationErrors, setValidationErrors] = useState({});
+    const handleInputChange = (event) => {
+        const { name, value } = event.target;
+        setFormData({
+            ...formData,
+            [name]: value,
+        });
+    };
+
+    const addIncomeHandler = async (e) => {
+        e.preventDefault();
+
+        try {
+            incomeSchema.parse(formData);
+            const newIncome = {
+                amount: parseInt(formData.amount),
+                description: formData.description,
+                createdAt: new Date(),
+            };
+
+            const collectionRef = collection(db, "income");
+
+            await addDoc(collectionRef, newIncome);
+            toast.success('Income addedd successfully!', {
+                position: toast.POSITION.TOP_RIGHT,
+                autoClose: 2000,
+              });
+            setFormData({
+                amount: '',
+                description: '',
+            });
+            setValidationErrors({});
+        } catch (error) {
+            console.error(error);
+            const errors = {};
+            error.issues.forEach((issue) => {
+                const fieldName = issue.path[0];
+                errors[fieldName] = issue.message;
+            });
+
+            setValidationErrors(errors);
+        }
+    };
+
+
     return (
         <Dialog>
             <DialogTrigger asChild>
@@ -29,17 +87,24 @@ export function IncomeModal() {
                         <Label htmlFor="name" className="text-right">
                             Amount
                         </Label>
-                        <Input type="number" min={1} step={1} id="amount" className="col-span-3" required placeholder="Enter the Income amount" />
+                        <Input name="amount" value={formData.amount} onChange={handleInputChange} type="number" min={10} step={10} id="amount" className="col-span-3" required placeholder="Enter the Income amount" />
                     </div>
+                    {validationErrors.amount && (
+                        <span className="text-red-500 text-center">{validationErrors.amount}</span>
+                    )}
                     <div className="grid grid-cols-4 items-center gap-4">
                         <Label htmlFor="username" className="text-right">
                             Description
                         </Label>
-                        <Input type="text" id="description" placeholder="Enter a description for income" required className="col-span-3" />
+                        <Input name="description" value={formData.description}
+                            onChange={handleInputChange} type="text" id="description" placeholder="Enter a description for income" required className="col-span-3" />
                     </div>
+                    {validationErrors.description && (
+                        <span className="text-red-500 text-center">{validationErrors.description}</span>
+                    )}
                 </div>
                 <DialogFooter>
-                    <Button type="submit">Add Entry</Button>
+                    <Button type="submit" onClick={addIncomeHandler}>Add Entry</Button>
                 </DialogFooter>
             </DialogContent>
         </Dialog>
