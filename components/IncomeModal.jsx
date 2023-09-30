@@ -1,6 +1,6 @@
 "use client";
 import { Button } from "@/components/ui/button"
-import { useState } from "react"
+import { useState, useContext } from "react"
 import {
     Dialog,
     DialogContent,
@@ -13,14 +13,17 @@ import {
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import incomeSchema from "@/lib/incomeSchema";
+import { financeContext } from "@/lib/store/finance-context";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { db } from "@/lib/firebase"
-import { collection, addDoc } from "firebase/firestore"
+import { useTheme } from 'next-themes'
+
 
 
 
 export function IncomeModal() {
+    const { theme } = useTheme()
+    const { addIncomeItem } = useContext(financeContext);
     const [formData, setFormData] = useState({
         amount: '',
         description: '',
@@ -44,13 +47,13 @@ export function IncomeModal() {
                 description: formData.description,
                 createdAt: new Date(),
             };
-
-            const collectionRef = collection(db, "income");
-
-            await addDoc(collectionRef, newIncome);
-            toast.success('Income addedd successfully!', {
+            await addIncomeItem(newIncome);
+            toast.success('Income added successfully!', {
                 position: toast.POSITION.TOP_RIGHT,
                 autoClose: 2000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                className: theme === 'dark' ? 'dark-toast' : 'light-toast',
               });
             setFormData({
                 amount: '',
@@ -68,6 +71,7 @@ export function IncomeModal() {
             setValidationErrors(errors);
         }
     };
+
 
 
     return (

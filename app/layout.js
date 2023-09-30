@@ -1,8 +1,10 @@
+"use client";
 import './globals.css'
 import { Inter } from 'next/font/google'
 import NavBar from '../components/NavBar'
 import { ThemeProvider } from "@/components/theme-provider"
 import { ToastContainer } from 'react-toastify';
+import FinanceContextProvider from '@/lib/store/finance-context';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -16,9 +18,11 @@ export default function RootLayout({ children }) {
         <html lang="en">
             <body className={inter.className}>
                 <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-                    <NavBar />
-                    {children}
-                    <ToastContainer />
+                    <FinanceContextProvider>
+                        <NavBar />
+                        {children}
+                        <ToastContainer />
+                    </FinanceContextProvider>
                 </ThemeProvider>
             </body>
         </html>

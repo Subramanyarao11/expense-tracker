@@ -7,6 +7,9 @@
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
 
+    --toastify-color-light: #fff;
+    --toastify-color-dark: #020817;
+
     --card: 0 0% 100%;
     --card-foreground: 222.2 84% 4.9%;
 
@@ -74,3 +77,13 @@
     @apply bg-background text-foreground;
   }
 }
+
+.light-toast {
+    background-color: var(--toastify-color-light);
+    color: #333333;
+  }
+
+  .dark-toast {
+    background-color: var(--toastify-color-dark);
+    color: #ffffff;
+  }
