@@ -11,6 +11,7 @@ const ExpensesSection = () => {
                 {expenses?.map((expense) => {
                     return (
                         <ExpenseCategoryItem
+                            expense={expense}
                             color={expense.color}
                             title={expense.title}
                             total={expense.total}

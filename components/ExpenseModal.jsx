@@ -56,7 +56,7 @@ export function ExpenseModal() {
                 hideProgressBar: true,
                 closeOnClick: true,
                 className: theme === 'dark' ? 'dark-toast' : 'light-toast',
-              });
+            });
             console.log(newExpense);
             setExpenseAmount("");
             setSelectedCategory(null);
@@ -70,12 +70,12 @@ export function ExpenseModal() {
         const color = colorRef.current.value;
 
         try {
-          await addCategory({ title, color, total: 0 });
-          setShowAddExpense(false);
+            await addCategory({ title, color, total: 0 });
+            setShowAddExpense(false);
         } catch (error) {
-          console.log(error.message);
+            console.log(error.message);
         }
-      };
+    };
     return (
         <Dialog>
             <DialogTrigger asChild>
@@ -111,10 +111,10 @@ export function ExpenseModal() {
                                 <div className="flex flex-col items-center justify-between px-2 space-y-2">
                                     <Input type="text" placeholder="Enter Title" ref={titleRef} />
                                     <div className="inline-flex items-center justify-between p-2 space-x-4">
-                                    <Label>Pick Color</Label>
-                                    <Input type="color" className="w-24 h-10" ref={colorRef} />
-                                    <Button variant="outline" onClick={addCategoryHandler}  className="py-1 px-2 ">Add</Button>
-                                    <Button variant="destructive" onClick={() => setShowAddExpense(false)} className="py-1 px-2 ">Cancel</Button>
+                                        <Label>Pick Color</Label>
+                                        <Input type="color" className="w-24 h-10" ref={colorRef} />
+                                        <Button variant="outline" onClick={addCategoryHandler} className="py-1 px-2 ">Add</Button>
+                                        <Button variant="destructive" onClick={() => setShowAddExpense(false)} className="py-1 px-2 ">Cancel</Button>
                                     </div>
 
                                 </div>
