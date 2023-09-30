@@ -4,11 +4,11 @@ ChartJS.register(ArcElement);
 ChartJS.register(Tooltip);
 ChartJS.register(Legend);
 import { Doughnut } from "react-chartjs-2";
-import DUMMY_DATA from "@/lib/dummydata";
-
-import React from 'react'
+import React,{useContext} from 'react'
+import { financeContext } from "@/lib/store/finance-context";
 
 const ChartSection = () => {
+    const { expenses } = useContext(financeContext);
     return (
         <div>
             {/*  */}
@@ -17,12 +17,12 @@ const ChartSection = () => {
                 <div className="w-1/2 mx-auto">
                     <Doughnut
                         data={{
-                            labels: DUMMY_DATA?.map((expense) => expense.title),
+                            labels: expenses?.map((expense) => expense.title),
                             datasets: [
                                 {
                                     label: "Expenses",
-                                    data: DUMMY_DATA?.map((expense) => expense.total),
-                                    backgroundColor: DUMMY_DATA?.map((expense) => expense.color),
+                                    data: expenses?.map((expense) => expense.total),
+                                    backgroundColor: expenses?.map((expense) => expense.color),
                                     borderColor: ["#18181b"],
                                     borderWidth: 5,
                                 },
