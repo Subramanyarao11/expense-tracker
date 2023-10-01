@@ -2,7 +2,7 @@
 import { BarChart4 } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
-import { ModeToggle } from './modeToggle';
+import { ModeToggle } from './ModeToggle';
 import { authContext } from '@/lib/store/auth-context';
 import { useContext } from 'react';
 
