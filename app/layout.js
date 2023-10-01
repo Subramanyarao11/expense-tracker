@@ -10,14 +10,13 @@ import AuthContextProvider from '@/lib/store/auth-context';
 
 const inter = Inter({ subsets: ['latin'] })
 
-export const metadata = {
-    title: 'Expense Tracker | Personalized Expense Tracker',
-    description: 'Personailzed expense tracker to track Income and Expenses',
-}
-
 export default function RootLayout({ children }) {
     return (
         <html lang="en">
+            <head>
+                <title>Expense Tracker | Personalized Expense Tracker</title>
+                <meta name='description' content='Personailzed expense tracker to track Income and Expenses' />
+            </head>
             <body className={`${inter.className} flex flex-col`}>
                 <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
                     <AuthContextProvider>
