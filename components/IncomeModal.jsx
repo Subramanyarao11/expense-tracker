@@ -14,6 +14,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import incomeSchema from "@/lib/incomeSchema";
 import { financeContext } from "@/lib/store/finance-context";
+import { authContext } from "@/lib/store/auth-context";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useTheme } from 'next-themes'
@@ -22,6 +23,7 @@ import { useTheme } from 'next-themes'
 
 
 export function IncomeModal() {
+    const {user} = useContext(authContext);
     const { theme } = useTheme()
     const { addIncomeItem } = useContext(financeContext);
     const [formData, setFormData] = useState({
@@ -46,6 +48,7 @@ export function IncomeModal() {
                 amount: parseInt(formData.amount),
                 description: formData.description,
                 createdAt: new Date(),
+                uid: user.uid,
             };
             await addIncomeItem(newIncome);
             toast.success('Income added successfully!', {
