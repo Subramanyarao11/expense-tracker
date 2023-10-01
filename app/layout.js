@@ -11,7 +11,7 @@ import AuthContextProvider from '@/lib/store/auth-context';
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
-    title: 'Expense Tracker',
+    title: 'Expense Tracker | Personalized Expense Tracker',
     description: 'Personailzed expense tracker to track Income and Expenses',
 }
 
