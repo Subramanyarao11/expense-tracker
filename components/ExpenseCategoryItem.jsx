@@ -80,6 +80,11 @@ function ExpenseCategoryItem({ color, title, total, expense }) {
                                         ? new Date(item.createdAt.toMillis()).toISOString()
                                         : item.createdAt.toISOString())}
                                 </small>
+                                <p className="">
+                                    {item.name.length > 20
+                                        ? item.name.substring(0, 10) + "..."
+                                        : item.name}
+                                </p>
                                 <p className="flex items-center gap-2">
                                     {currencyFormatter(item.amount)}
                                     <button

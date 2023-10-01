@@ -1,5 +1,5 @@
 "use client";
-import React, {useContext} from 'react'
+import React, { useContext } from 'react'
 import ExpenseCategoryItem from './ExpenseCategoryItem'
 import { financeContext } from "@/lib/store/finance-context";
 const ExpensesSection = () => {

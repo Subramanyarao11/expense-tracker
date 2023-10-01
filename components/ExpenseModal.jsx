@@ -21,6 +21,7 @@ import { useTheme } from 'next-themes'
 export function ExpenseModal() {
     const { expenses, addExpenseItem, addCategory } = useContext(financeContext);
     const [expenseAmount, setExpenseAmount] = useState("");
+    const [expenseName, setExpenseName] = useState("");
     const [selectedCategory, setSelectedCategory] = useState(null);
     const [showAddExpense, setShowAddExpense] = useState(false);
 
@@ -43,6 +44,7 @@ export function ExpenseModal() {
                 {
                     amount: +expenseAmount,
                     createdAt: new Date(),
+                    name: expenseName,
                     id: uuidv4(),
                 },
             ],
@@ -97,9 +99,16 @@ export function ExpenseModal() {
                             onChange={(e) => {
                                 setExpenseAmount(e.target.value);
                             }} type="number" min={10} step={10} id="amount" className="col-span-3" required placeholder="Enter the Expense amount" />
+                        <Label htmlFor="name" className="text-right">
+                            Name
+                        </Label>
+                        <Input name="item" value={expenseName}
+                            onChange={(e) => {
+                                setExpenseName(e.target.value);
+                            }} type="text" className="col-span-3" required placeholder="Enter the Expense Name" />
                     </div>
 
-                    {expenseAmount > 0 && (
+                    {expenseAmount > 0 && expenseName.length > 0 && (
                         <>
                             <div className="flex items-center justify-between p-2">
                                 <p className="text-center font-medium text-sm">Add New Category</p>
@@ -138,7 +147,7 @@ export function ExpenseModal() {
 
                 </div>
                 <DialogFooter>
-                    {expenseAmount > 0 && selectedCategory && (<Button onClick={addExpenseItemHandler} type="submit">Save changes</Button>)}
+                    {expenseAmount > 0 && expenseName.length > 0 && selectedCategory && (<Button onClick={addExpenseItemHandler} type="submit">Save changes</Button>)}
                 </DialogFooter>
             </DialogContent>
         </Dialog>
